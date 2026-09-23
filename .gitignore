@@ -1,0 +1,17 @@
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Reference material and working screenshots (not part of the site)
+.ref/
+.shots/
+screencapture-*.png
+
+# Tooling state
+.commandcode/
+
+# Editors
+.vscode/
+.idea/
+*.swp

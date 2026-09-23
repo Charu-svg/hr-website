@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-motion="standard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open roles: Wrenfield, hiring on the record</title>
+<meta name="description" content="Every live role Wrenfield is working, with the salary band, the location, the days on site and how far along the process is. Free for candidates.">
+<meta name="theme-color" content="#faf7f1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:SOFT,WONK,opsz,wght@0..100,0..1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+(function () {
+  document.documentElement.classList.add("js");
+  try {
+    var saved = localStorage.getItem("wrenfield.motion");
+    var prefers = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.documentElement.setAttribute("data-motion", saved || (prefers ? "reduced" : "standard"));
+  } catch (e) {
+    document.documentElement.setAttribute("data-motion", "standard");
+  }
+})();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="shell masthead">
+    <a class="wordmark" href="index.html">
+      <span class="wordmark__mark" aria-hidden="true"></span>
+      <span class="wordmark__name">Wrenfield</span>
+      <span class="wordmark__suffix">Search &amp; staffing</span>
+    </a>
+    <nav class="masthead__nav" aria-label="Primary">
+      <a class="nav-link" href="jobs.html" aria-current="page">Open roles</a>
+      <a class="nav-link" href="employers.html">Employers</a>
+      <a class="nav-link" href="about.html">The firm</a>
+    </nav>
+    <div class="masthead__end">
+      <a class="masthead__phone" href="tel:+441615550142">0161 555 0142</a>
+      <a class="btn btn--primary btn--sm" href="employers.html#brief">
+        <span class="btn__label">Send us a role</span>
+      </a>
+      <button class="menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="nav-panel">
+        <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav-panel" id="nav-panel" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="nav-panel__head">
+    <a class="wordmark" href="index.html">
+      <span class="wordmark__mark" aria-hidden="true"></span>
+      <span class="wordmark__name">Wrenfield</span>
+    </a>
+    <button class="icon-btn" type="button" data-close aria-label="Close menu">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+    </button>
+  </div>
+  <nav class="nav-panel__body" aria-label="Menu">
+    <ul class="nav-panel__list">
+      <li><a class="nav-panel__link" href="jobs.html"><span>Open roles</span><span class="nav-panel__index">24</span></a></li>
+      <li><a class="nav-panel__link" href="employers.html"><span>Employers</span><span class="nav-panel__index">Fees</span></a></li>
+      <li><a class="nav-panel__link" href="about.html"><span>The firm</span><span class="nav-panel__index">Since 2011</span></a></li>
+      <li><a class="nav-panel__link" href="about.html#offices"><span>Offices</span><span class="nav-panel__index">3</span></a></li>
+    </ul>
+  </nav>
+  <div class="nav-panel__foot">
+    <a class="btn btn--primary btn--block" href="employers.html#brief">Send us a role</a>
+    <p class="label">Mon to Fri, 8am to 6pm</p>
+    <a class="masthead__phone" href="tel:+441615550142">0161 555 0142</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="shell page-head__grid">
+      <div>
+        <p class="label label--signal">Live board · updated this morning</p>
+        <h1>Every open role, with the band printed on it.</h1>
+        <p class="lede">
+          This is the same ledger we run the business from. You can see the salary, the days on site,
+          how long the role has been open and how far along it is. No role is advertised here that we
+          are not actively working.
+        </p>
+      </div>
+      <div class="page-head__aside">
+        <dl class="head-facts">
+          <div class="head-facts__row">
+            <dt>Open now</dt>
+            <dd class="num">24 roles across four desks</dd>
+          </div>
+          <div class="head-facts__row">
+            <dt>Cost to you</dt>
+            <dd>Nothing. Employers pay us.</dd>
+          </div>
+          <div class="head-facts__row">
+            <dt>Reply time</dt>
+            <dd>Two working days, including the noes</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight board" aria-labelledby="board-heading">
+    <div class="shell">
+      <h2 class="visually-hidden" id="board-heading">Search the board</h2>
+
+      <form class="board__controls" id="board-filters" role="search" aria-label="Filter roles">
+        <div class="board__controls-row">
+          <div class="field board__search">
+            <label class="field__label" for="board-q">Search roles</label>
+            <input class="input" type="search" id="board-q" name="q" autocomplete="off" placeholder="e.g. maintenance, nurse, Go, Bristol">
+          </div>
+          <div class="field">
+            <label class="field__label" for="board-sort">Sort by</label>
+            <select class="select" id="board-sort" name="sort">
+              <option value="recent">Most recently opened</option>
+              <option value="oldest">Longest open first</option>
+              <option value="band-high">Band, high to low</option>
+              <option value="band-low">Band, low to high</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset class="board__fieldset">
+          <legend class="field__label">Desk</legend>
+          <div class="filter-chips" id="board-desks">
+            <span class="fchip">
+              <input type="checkbox" name="desk" id="desk-eng" value="eng">
+              <label for="desk-eng">Engineering <span class="fchip__count num">6</span></label>
+            </span>
+            <span class="fchip">
+              <input type="checkbox" name="desk" id="desk-cln" value="cln">
+              <label for="desk-cln">Clinical <span class="fchip__count num">6</span></label>
+            </span>
+            <span class="fchip">
+              <input type="checkbox" name="desk" id="desk-ind" value="ind">
+              <label for="desk-ind">Industrial <span class="fchip__count num">6</span></label>
+            </span>
+            <span class="fchip">
+              <input type="checkbox" name="desk" id="desk-fin" value="fin">
+              <label for="desk-fin">Finance <span class="fchip__count num">6</span></label>
+            </span>
+          </div>
+        </fieldset>
+
+        <div class="board__controls-row board__controls-row--3">
+          <div class="field">
+            <label class="field__label" for="board-location">Location</label>
+            <select class="select" id="board-location" name="location">
+              <option value="all">Anywhere</option>
+              <option value="Manchester">Manchester</option>
+              <option value="Leeds">Leeds</option>
+              <option value="Bristol">Bristol</option>
+              <option value="Sheffield">Sheffield</option>
+              <option value="Runcorn">Runcorn</option>
+              <option value="Warrington">Warrington</option>
+              <option value="Bolton">Bolton</option>
+              <option value="Stockport">Stockport</option>
+              <option value="Hull">Hull</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="board-contract">Contract</label>
+            <select class="select" id="board-contract" name="contract">
+              <option value="all">Any contract</option>
+              <option value="Permanent">Permanent</option>
+              <option value="Fixed term">Fixed term</option>
+              <option value="Contract">Contract or interim</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="board-salary">Band</label>
+            <select class="select" id="board-salary" name="salary">
+              <option value="all">Any band</option>
+              <option value="0-35000">Up to £35,000</option>
+              <option value="35000-50000">£35,000 to £50,000</option>
+              <option value="50000-80000">£50,000 to £80,000</option>
+              <option value="80000-999999">£80,000 and above</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="board__controls-foot">
+          <label class="check" for="board-filled">
+            <input type="checkbox" id="board-filled" name="filled">
+            <span>Include roles we have already filled</span>
+          </label>
+          <button class="btn btn--ghost btn--sm" type="reset" id="board-clear">Clear all filters</button>
+        </div>
+      </form>
+
+      <div class="board__status" id="board-status" role="status" aria-live="polite">
+        <p class="board__count" id="board-count"></p>
+        <ul class="board__active" id="board-active"></ul>
+      </div>
+      <p class="board__excluded" id="board-excluded" hidden></p>
+
+      <noscript>
+        <div class="state state--error">
+          <h3 class="state__title">The board needs JavaScript</h3>
+          <p class="state__body">
+            Filtering runs in your browser, so it needs JavaScript switched on. The live list is on
+            the phone either way: call 0161 555 0142 between 8am and 6pm, or email
+            <a href="mailto:jobs@wrenfield.co.uk">jobs@wrenfield.co.uk</a> and we will send the
+            current board as a PDF.
+          </p>
+        </div>
+      </noscript>
+
+      <div class="board__loading" id="board-loading" aria-hidden="true">
+        <div class="skeleton skeleton--row"></div>
+        <div class="skeleton skeleton--row"></div>
+        <div class="skeleton skeleton--row"></div>
+        <div class="skeleton skeleton--row"></div>
+        <div class="skeleton skeleton--row"></div>
+      </div>
+
+      <div class="state state--error" id="board-error" hidden>
+        <h3 class="state__title">The board did not load</h3>
+        <p class="state__body">
+          Something went wrong on our side, not yours. Reload the page to try again, or call
+          0161 555 0142 and we will read the live list out to you.
+        </p>
+        <div class="state__actions">
+          <button class="btn btn--ink" type="button" id="board-retry">Reload the board</button>
+          <a class="btn btn--ghost" href="tel:+441615550142">Call the Manchester desk</a>
+        </div>
+      </div>
+
+      <ul class="role-list" id="board-results"></ul>
+
+      <div class="state" id="board-empty" hidden>
+        <h3 class="state__title">Nothing matches that</h3>
+        <p class="state__body">
+          Every filter you set is applied together, so a small mismatch can empty the list. Widen one
+          of them, or set an alert and we will tell you when something lands.
+        </p>
+        <div class="state__actions">
+          <button class="btn btn--ink" type="button" id="board-empty-clear">Clear all filters</button>
+          <a class="btn btn--ghost" href="#alert">Set a role alert</a>
+        </div>
+      </div>
+
+      <div class="board__more" id="board-more-wrap" hidden>
+        <button class="btn btn--ghost" type="button" id="board-more">
+          <span class="btn__label">Show more roles</span>
+        </button>
+        <p class="board__more-note" id="board-more-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-ink" aria-labelledby="after-heading">
+    <div class="shell">
+      <div class="section-intro">
+        <p class="label label--signal">What happens next</p>
+        <h2 id="after-heading">Applying should not feel like a hole you shout into</h2>
+      </div>
+      <ol class="after__grid">
+        <li class="after__step reveal">
+          <p class="after__num">01</p>
+          <h3 class="after__what">You apply, and a person reads it</h3>
+          <p class="after__detail">
+            Applications go to the consultant named on the role, not to a shared inbox. The same
+            person replies.
+          </p>
+        </li>
+        <li class="after__step reveal" style="--reveal-delay: 60ms">
+          <p class="after__num">02</p>
+          <h3 class="after__what">A call inside two working days</h3>
+          <p class="after__detail">
+            Including when the answer is no. If you are not right for this one, you will hear that
+            from us rather than working it out from the silence.
+          </p>
+        </li>
+        <li class="after__step reveal" style="--reveal-delay: 120ms">
+          <p class="after__num">03</p>
+          <h3 class="after__what">Nothing moves without your say so</h3>
+          <p class="after__detail">
+            Your details are not sent to a client until you have said yes in writing, and you will
+            know the client's name before that.
+          </p>
+        </li>
+        <li class="after__step reveal" style="--reveal-delay: 180ms">
+          <p class="after__num">04</p>
+          <h3 class="after__what">Feedback after every interview</h3>
+          <p class="after__detail">
+            Within 24 hours, whether it went well or not. We ask clients for written feedback and we
+            pass it on unedited.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section alert-section" id="alert" aria-labelledby="alert-heading">
+    <div class="shell alert-section__grid">
+      <div>
+        <p class="label">Role alert</p>
+        <h2 id="alert-heading">Tell us what you are looking for</h2>
+        <p class="lede">
+          We will email when something on the board matches. No newsletter, no marketing, and you can
+          stop it in one click.
+        </p>
+        <p class="note alert-section__note">
+          Alerts go out on weekday mornings. If nothing matching comes up in 90 days we close the
+          alert and tell you we have.
+        </p>
+      </div>
+      <form class="alert-form" id="alert-form" novalidate>
+        <div class="form-status" id="alert-status" tabindex="-1" hidden></div>
+        <div class="field">
+          <label class="field__label" for="alert-desk">Desk <span class="field__req" aria-hidden="true">*</span></label>
+          <select class="select" id="alert-desk" name="desk" data-validate="required" data-label="Desk" data-message-required="Pick the desk closest to your work.">
+            <option value="">Choose a desk</option>
+            <option value="eng">Engineering &amp; product</option>
+            <option value="cln">Clinical &amp; healthcare</option>
+            <option value="ind">Industrial &amp; trades</option>
+            <option value="fin">Finance &amp; operations</option>
+          </select>
+          <p class="field__error" id="alert-desk-error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="alert-location">Where you can work <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" type="text" id="alert-location" name="location" placeholder="e.g. Manchester, or remote" data-validate="required" data-label="Where you can work" data-message-required="Cities, or the word remote. Either is fine.">
+          <p class="field__error" id="alert-location-error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="alert-email">Email <span class="field__req" aria-hidden="true">*</span></label>
+          <input class="input" type="email" id="alert-email" name="email" autocomplete="email" placeholder="you@example.com" data-validate="required email" data-label="Email" data-message-required="We need somewhere to send the alert." data-message-type="Check the address, it looks incomplete.">
+          <p class="field__error" id="alert-email-error"></p>
+        </div>
+        <fieldset class="field">
+          <legend class="field__label">Anything else that matters</legend>
+          <label class="check" for="alert-salary">
+            <input type="checkbox" id="alert-salary" name="salary">
+            <span>Only tell me about roles with a disclosed band</span>
+          </label>
+          <label class="check" for="alert-nights">
+            <input type="checkbox" id="alert-nights" name="nights">
+            <span>I can work nights or shifts</span>
+          </label>
+        </fieldset>
+        <button class="btn btn--primary btn--block" type="submit" id="alert-submit">
+          <span class="btn__label">Set the alert</span>
+        </button>
+        <p class="note">We hold alert details for 24 months and nothing else. See <a href="about.html#compliance">how we handle data</a>.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="site-footer__top">
+      <div class="footer-brand">
+        <p class="footer-brand__name"><span class="wordmark__mark" aria-hidden="true"></span>Wrenfield</p>
+        <p class="footer-brand__note">
+          Independent search and staffing since 2011. Four desks, three offices, and a record of
+          every role we have taken on.
+        </p>
+        <p class="credential" style="margin-top: var(--s-6)">Corporate member, REC</p>
+        <p class="credential">ICO registered, ref Z9821447</p>
+      </div>
+      <nav class="footer-nav" aria-label="Roles">
+        <h2 class="footer-nav__title">Open roles</h2>
+        <ul class="footer-nav__list">
+          <li><a href="jobs.html#desk-eng">Engineering &amp; product</a></li>
+          <li><a href="jobs.html#desk-cln">Clinical &amp; healthcare</a></li>
+          <li><a href="jobs.html#desk-ind">Industrial &amp; trades</a></li>
+          <li><a href="jobs.html#desk-fin">Finance &amp; operations</a></li>
+          <li><a href="jobs.html#alert">Set a role alert</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="Employers">
+        <h2 class="footer-nav__title">Employers</h2>
+        <ul class="footer-nav__list">
+          <li><a href="employers.html#brief">Send us a role</a></li>
+          <li><a href="employers.html#fees">Fees and terms</a></li>
+          <li><a href="employers.html#guarantee">Guarantee</a></li>
+          <li><a href="employers.html#sla">Our timings</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav" aria-label="The firm">
+        <h2 class="footer-nav__title">The firm</h2>
+        <ul class="footer-nav__list">
+          <li><a href="about.html">Who we are</a></li>
+          <li><a href="about.html#record">The record</a></li>
+          <li><a href="about.html#offices">Offices</a></li>
+          <li><a href="about.html#compliance">Compliance</a></li>
+        </ul>
+      </nav>
+      <div class="footer-nav">
+        <h2 class="footer-nav__title">Talk to a desk</h2>
+        <ul class="footer-nav__list">
+          <li><a href="tel:+441615550142">Manchester, 0161 555 0142</a></li>
+          <li><a href="tel:+441135550180">Leeds, 0113 555 0180</a></li>
+          <li><a href="tel:+441175550163">Bristol, 0117 555 0163</a></li>
+          <li><a href="mailto:hello@wrenfield.co.uk">hello@wrenfield.co.uk</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>&copy; <span id="year">2025</span> Wrenfield Search &amp; Staffing Ltd. Registered in England, company number 07741186. VAT GB 412 8876 03.</p>
+      <div class="motion-control">
+        <span class="motion-control__label" id="motion-label">Motion</span>
+        <div class="seg" role="radiogroup" aria-labelledby="motion-label">
+          <span class="seg__opt"><input type="radio" name="motion" id="motion-none" value="none"><label for="motion-none">None</label></span>
+          <span class="seg__opt"><input type="radio" name="motion" id="motion-reduced" value="reduced"><label for="motion-reduced">Reduced</label></span>
+          <span class="seg__opt"><input type="radio" name="motion" id="motion-standard" value="standard" checked><label for="motion-standard">Standard</label></span>
+          <span class="seg__opt"><input type="radio" name="motion" id="motion-enhanced" value="enhanced"><label for="motion-enhanced">Enhanced</label></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="backdrop" id="board-backdrop"></div>
+
+<div class="drawer" id="role-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1" hidden>
+  <div class="drawer__head">
+    <div>
+      <p class="drawer__eyebrow" id="drawer-eyebrow"></p>
+      <h2 class="drawer__title" id="drawer-title">Role</h2>
+    </div>
+    <button class="icon-btn drawer__close" type="button" data-close aria-label="Close role">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body" id="drawer-body"></div>
+  <div class="drawer__foot">
+    <p class="drawer__foot-note" id="drawer-foot"></p>
+    <a class="link-arrow" href="#apply" id="drawer-apply-link">
+      <span>Apply for this role</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9.5 3.5 14 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+    </a>
+  </div>
+</div>
+
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/roles.js" defer></script>
+<script src="assets/js/board.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Vercel publishes everything that survives this file. The site is the four
+# HTML pages plus assets/; the app source, the database and the deployment
+# tooling should never be served as static files.
+server
+data
+uploads
+Dockerfile
+.dockerignore
+docker-compose.yml
+Caddyfile
+.ref
+.shots
+.commandcode
+screencapture-*.png

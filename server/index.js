@@ -27,7 +27,7 @@ const MIME = {
 };
 
 /* Directories and files the web should never hand out. */
-const BLOCKED = [".env", ".git", ".github", ".commandcode", "server", "data", "uploads", "node_modules", "Dockerfile", "docker-compose.yml", "Caddyfile", "package.json", "package-lock.json"];
+const BLOCKED = [".env", ".git", ".github", ".commandcode", "server", "data", "uploads", "node_modules", "Dockerfile", "docker-compose.yml", "Caddyfile", "vercel.json", "package.json", "package-lock.json"];
 
 function securityHeaders(res) {
   res.setHeader("x-content-type-options", "nosniff");

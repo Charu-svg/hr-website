@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Placeholder square photograph">
+  <defs>
+    <linearGradient id="squareBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16405f"/>
+      <stop offset="0.6" stop-color="#187ba8"/>
+      <stop offset="1" stop-color="#14ace8"/>
+    </linearGradient>
+    <radialGradient id="squareLight" cx="0.7" cy="0.24" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="400" height="400" fill="url(#squareBg)"/>
+  <rect width="400" height="400" fill="url(#squareLight)"/>
+  <g opacity="0.12" fill="#ffffff">
+    <rect x="30" y="40" width="130" height="160" rx="6"/>
+  </g>
+  <circle cx="200" cy="168" r="70" fill="#ffffff" opacity="0.3"/>
+  <path d="M96 400c0-57 47-104 104-104s104 47 104 104z" fill="#ffffff" opacity="0.34"/>
+</svg>

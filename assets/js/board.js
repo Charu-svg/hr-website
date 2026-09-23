@@ -1,4 +1,5 @@
-/* The board: filtering, sorting, states and the role drawer. */
+/* The board: roles from the API (falling back to the bundled ledger),
+   filtering, sorting, states, and the role drawer with a real application. */
 
 (function (WF, doc) {
   "use strict";
@@ -69,13 +70,17 @@
   }
 
   function salaryCeiling(role) {
-    if (role.salaryMax !== null) return role.salaryMax;
+    if (role.salaryMax !== null && role.salaryMax !== undefined) return role.salaryMax;
     return role.salaryMin;
   }
 
   function salaryFloor(role) {
-    if (role.salaryMin !== null) return role.salaryMin;
+    if (role.salaryMin !== null && role.salaryMin !== undefined) return role.salaryMin;
     return role.salaryMax;
+  }
+
+  function hasBand(role) {
+    return role.salaryMin !== null && role.salaryMin !== undefined;
   }
 
   function matches(role) {
@@ -83,10 +88,10 @@
 
     if (state.desks.length && state.desks.indexOf(role.desk) === -1) return false;
     if (state.location !== "all" && role.location !== state.location) return false;
-    if (state.contract !== "all" && role.contract.indexOf(state.contract) !== 0) return false;
+    if (state.contract !== "all" && String(role.contract || "").indexOf(state.contract) !== 0) return false;
 
     if (state.salary !== "all") {
-      if (role.salaryMin === null) return false;
+      if (!hasBand(role)) return false;
       var range = bandRanges[state.salary];
       if (salaryCeiling(role) < range[0] || salaryFloor(role) > range[1]) return false;
     }
@@ -117,7 +122,7 @@
       var openOnly = state.filled || role.stage !== "placed";
       var deskOk = !state.desks.length || state.desks.indexOf(role.desk) > -1;
       var locationOk = state.location === "all" || role.location === state.location;
-      return openOnly && deskOk && locationOk && role.salaryMin === null;
+      return openOnly && deskOk && locationOk && !hasBand(role);
     }).length;
   }
 
@@ -128,8 +133,8 @@
       if (state.sort === "recent") return a.daysOpen - b.daysOpen;
       if (state.sort === "oldest") return b.daysOpen - a.daysOpen;
 
-      var aValue = salaryCeiling(a);
-      var bValue = salaryCeiling(b);
+      var aValue = hasBand(a) ? salaryCeiling(a) : null;
+      var bValue = hasBand(b) ? salaryCeiling(b) : null;
       if (aValue === null) return 1;
       if (bValue === null) return -1;
       if (state.sort === "band-high") return bValue - aValue;
@@ -140,22 +145,22 @@
   }
 
   function rowMarkup(role) {
-    var bandClass = role.salaryMin === null ? "role-row__band role-row__band--none" : "role-row__band";
-    var bandText = role.salaryMin === null ? "Band not set yet" : role.band;
+    var bandClass = hasBand(role) ? "role-row__band" : "role-row__band role-row__band--none";
+    var bandText = hasBand(role) ? role.band : "Band not set yet";
 
     return (
-      '<li class="role-row" id="' + role.ref + '">' +
+      '<li class="role-row" id="' + esc(role.ref) + '">' +
       '<div class="role-row__grid">' +
       '<div class="role-row__main">' +
       '<p class="role-row__meta">' +
-      '<span class="mono">' + role.ref + "</span>" +
+      '<span class="mono">' + esc(role.ref) + "</span>" +
       '<span class="dot-sep" aria-hidden="true"></span>' +
-      "<span>" + esc(role.deskName) + "</span>" +
+      "<span>" + esc(role.deskName || role.desk) + "</span>" +
       '<span class="dot-sep" aria-hidden="true"></span>' +
       "<span>" + esc(role.location) + "</span>" +
       "</p>" +
       '<h3 class="role-row__title">' +
-      '<a href="#' + role.ref + '" data-role="' + role.ref + '">' + esc(role.title) + "</a>" +
+      '<a href="#' + esc(role.ref) + '" data-role="' + esc(role.ref) + '">' + esc(role.title) + "</a>" +
       "</h3>" +
       '<p class="role-row__summary">' + esc(role.summary) + "</p>" +
       '<p class="role-row__facts">' +
@@ -168,8 +173,8 @@
       "</div>" +
       '<div class="role-row__side">' +
       '<p class="' + bandClass + '">' + esc(bandText) + "</p>" +
-      '<p class="role-row__days"><span class="num">' + role.daysOpen + "</span> days open</p>" +
-      '<span class="' + stageClass(role.stage) + '">' + esc(role.stageLabel) + "</span>" +
+      '<p class="role-row__days"><span class="num">' + esc(role.daysOpen) + "</span> days open</p>" +
+      '<span class="' + stageClass(role.stage) + '">' + esc(role.stageLabel || role.stage) + "</span>" +
       "</div>" +
       "</div>" +
       "</li>"
@@ -197,7 +202,7 @@
       var match = roles.filter(function (role) {
         return role.desk === desk;
       })[0];
-      chips.push(chipMarkup("desk", match ? match.deskName : desk, desk));
+      chips.push(chipMarkup("desk", match ? match.deskName || match.desk : desk, desk));
     });
 
     if (state.location !== "all") chips.push(chipMarkup("location", state.location, state.location));
@@ -288,7 +293,7 @@
   function list(items) {
     return (
       '<ul class="ticklist">' +
-      items
+      (items || [])
         .map(function (item) {
           return "<li>" + esc(item) + "</li>";
         })
@@ -301,6 +306,9 @@
     return (
       '<form class="apply-form" id="apply-form" novalidate>' +
       '<div class="form-status" id="apply-status" tabindex="-1" hidden></div>' +
+      '<p class="hp" aria-hidden="true"><label for="apply-website">Website</label>' +
+      '<input type="text" id="apply-website" name="website" tabindex="-1" autocomplete="off"></p>' +
+      '<input type="hidden" name="formStartedAt" value="">' +
       '<h3 class="drawer__subtitle" id="apply">Apply for this role</h3>' +
       '<p class="drawer__note">' + esc(role.consultant) + " reads every application for this desk. Expect a call inside two working days, including if the answer is no.</p>" +
       '<div class="field-row field-row--2">' +
@@ -325,7 +333,7 @@
       '<label class="drop" id="apply-drop" for="apply-cv">' +
       '<span class="drop__title">Drop a file here, or choose one</span>' +
       '<span class="drop__meta">PDF, Word or ODT, up to 10MB</span>' +
-      '<input type="file" id="apply-cv" name="cv" accept=".pdf,.doc,.docx,.odt" data-validate="required" data-label="CV" data-message-required="Attach a CV, or paste a link to your profile in the note below and attach a one-page summary.">' +
+      '<input type="file" id="apply-cv" name="cv" accept=".pdf,.doc,.docx,.odt,.rtf,.txt" data-validate="required" data-label="CV" data-message-required="Attach a CV, or paste a link to your profile in the note below and attach a one-page summary.">' +
       "</label>" +
       '<p class="drop__file" id="apply-file" hidden></p>' +
       '<p class="field__error" id="apply-cv-error"></p>' +
@@ -349,19 +357,18 @@
   }
 
   function drawerMarkup(role) {
-    var bandRow =
-      role.salaryMin === null
-        ? fact("Band", "Not set yet")
-        : fact("Band", role.band + (role.salaryNote ? ". " + role.salaryNote : ""));
+    var bandRow = hasBand(role)
+      ? fact("Band", role.band + (role.salaryNote ? ". " + role.salaryNote : ""))
+      : fact("Band", "Not set yet");
 
     return (
       '<section class="drawer__section">' +
       "<p>" + esc(role.summary) + "</p>" +
       '<dl class="fact-list">' +
-      fact("Location", role.location + ". " + role.pattern) +
-      fact("Contract", role.contract + ", " + role.hours) +
+      fact("Location", role.location + ". " + (role.pattern || "")) +
+      fact("Contract", (role.contract || "") + ", " + (role.hours || "")) +
       bandRow +
-      fact("Desk", role.deskName + ", " + role.consultant) +
+      fact("Desk", (role.deskName || role.desk) + ", " + (role.consultant || "")) +
       fact("Client", role.clientType) +
       fact("Days open", role.daysOpen + " days") +
       "</dl>" +
@@ -389,6 +396,22 @@
     );
   }
 
+  function markFieldInvalid(id, message) {
+    var input = doc.getElementById(id);
+    if (!input) return null;
+    var wrapper = input.closest(".field");
+    if (!wrapper) return null;
+    wrapper.setAttribute("data-invalid", "true");
+    input.setAttribute("aria-invalid", "true");
+    var errorNode = wrapper.querySelector(".field__error");
+    if (errorNode) errorNode.textContent = message;
+    return {
+      input: input,
+      label: input.getAttribute("data-label") || id,
+      message: message
+    };
+  }
+
   function wireApplyForm(role) {
     var form = doc.getElementById("apply-form");
     if (!form) return;
@@ -398,6 +421,17 @@
     var fileInput = doc.getElementById("apply-cv");
     var fileNote = doc.getElementById("apply-file");
     var submit = doc.getElementById("apply-submit");
+    var honeypot = doc.getElementById("apply-website");
+    var started = form.querySelector("[name='formStartedAt']");
+
+    if (started) started.value = String(Date.now());
+
+    function resetSubmit() {
+      if (!submit) return;
+      submit.removeAttribute("data-loading");
+      submit.removeAttribute("aria-busy");
+      submit.disabled = false;
+    }
 
     if (drop && fileInput) {
       var showFile = function (file) {
@@ -430,10 +464,10 @@
         if (!files || !files.length) return;
         try {
           fileInput.files = files;
-          showFile(files[0]);
         } catch (error) {
-          showFile(files[0]);
+          /* some browsers refuse, the picker still works */
         }
+        showFile(files[0]);
       });
     }
 
@@ -447,26 +481,72 @@
         return;
       }
 
+      if (honeypot) honeypot.value = "";
+
       submit.setAttribute("data-loading", "true");
       submit.setAttribute("aria-busy", "true");
       submit.disabled = true;
 
-      window.setTimeout(function () {
-        WF.setStatus(
-          status,
-          "success",
-          "Application noted for " + role.ref,
-          "In a live build this would reach " +
+      var data = new FormData(form);
+      data.set("roleRef", role.ref);
+      data.set("roleTitle", role.title);
+
+      fetch("/api/applications", { method: "POST", body: data })
+        .then(function (response) {
+          return response.json().then(function (body) {
+            return { status: response.status, body: body };
+          });
+        })
+        .then(function (result) {
+          if (result.body && result.body.fields && result.body.fields.length) {
+            var listed = result.body.fields
+              .map(function (item) {
+                return markFieldInvalid(item.field, item.message);
+              })
+              .filter(Boolean);
+            WF.errorSummary(form, listed, status);
+            resetSubmit();
+            return;
+          }
+
+          if (!result.body || result.body.ok !== true) {
+            WF.setStatus(
+              status,
+              "error",
+              "That did not go through",
+              (result.body && result.body.error) || "Something went wrong on our side. Try again in a moment."
+            );
+            resetSubmit();
+            return;
+          }
+
+          WF.setStatus(
+            status,
+            "success",
+            "Application sent for " + role.ref,
             esc(role.consultant) +
-            " and you would get a reply inside two working days. Nothing was sent from this demo build, and no data left your browser."
-        );
-        form.querySelectorAll(".input, .textarea, .select, input[type='checkbox'], button").forEach(function (node) {
-          node.disabled = true;
+              " reads every application for this desk, and you will get a reply inside two working days, including if the answer is no."
+          );
+
+          Array.prototype.forEach.call(
+            form.querySelectorAll(".input, .textarea, .select, input[type='checkbox'], button"),
+            function (node) {
+              node.disabled = true;
+            }
+          );
+          resetSubmit();
+          if (status) status.focus();
+        })
+        .catch(function () {
+          resetSubmit();
+          WF.setStatus(
+            status,
+            "error",
+            "We could not reach our server",
+            "Nothing was lost, but it was not sent either. Call 0161 555 0142 or email " +
+              '<a href="mailto:hello@wrenfield.co.uk">hello@wrenfield.co.uk</a> and we will pick it up straight away.'
+          );
         });
-        submit.removeAttribute("data-loading");
-        submit.removeAttribute("aria-busy");
-        status.focus();
-      }, 900);
     });
   }
 
@@ -477,14 +557,14 @@
     if (!role || !drawer) return;
 
     els.drawerEyebrow.innerHTML =
-      '<span class="mono">' + role.ref + "</span>" +
+      '<span class="mono">' + esc(role.ref) + "</span>" +
       '<span class="dot-sep" aria-hidden="true"></span>' +
-      "<span>" + esc(role.deskName) + "</span>" +
-      '<span class="' + stageClass(role.stage) + '">' + esc(role.stageLabel) + "</span>";
+      "<span>" + esc(role.deskName || role.desk) + "</span>" +
+      '<span class="' + stageClass(role.stage) + '">' + esc(role.stageLabel || role.stage) + "</span>";
 
     els.drawerTitle.textContent = role.title;
     els.drawerBody.innerHTML = drawerMarkup(role);
-    els.drawerFoot.textContent = role.location + " · " + role.band;
+    els.drawerFoot.textContent = role.location + " · " + (hasBand(role) ? role.band : "band not set");
 
     drawer.open(trigger);
     wireApplyForm(role);
@@ -492,132 +572,246 @@
 
   /* Wiring ----------------------------------------------------------------- */
 
-  if (!roles.length) {
+  function wireBoard() {
+    if (els.form) {
+      els.form.addEventListener("submit", function (event) {
+        event.preventDefault();
+      });
+      els.form.addEventListener("change", rerender);
+      els.form.addEventListener("input", WF.debounce(rerender, 160));
+      els.form.addEventListener("reset", function () {
+        window.setTimeout(rerender, 0);
+      });
+    }
+
+    if (els.more) {
+      els.more.addEventListener("click", function () {
+        state.limit += PAGE;
+        render();
+      });
+    }
+
+    var clearAll = function () {
+      if (els.form) els.form.reset();
+      rerender();
+      if (els.q) els.q.focus();
+    };
+
+    if (els.clear) els.clear.addEventListener("click", clearAll);
+    if (els.emptyClear) els.emptyClear.addEventListener("click", clearAll);
+
+    if (els.retry) {
+      els.retry.addEventListener("click", function () {
+        els.error.hidden = true;
+        els.loading.hidden = false;
+        loadFromApi().then(function (ok) {
+          els.loading.hidden = true;
+          if (ok) {
+            els.error.hidden = true;
+            render();
+          } else {
+            els.error.hidden = false;
+          }
+        });
+      });
+    }
+
+    if (els.results) {
+      els.results.addEventListener("click", function (event) {
+        var row = event.target.closest(".role-row");
+        if (!row) return;
+        event.preventDefault();
+        openRole(row.id, row.querySelector("[data-role]") || row);
+      });
+    }
+
+    if (els.active) {
+      els.active.addEventListener("click", function (event) {
+        var button = event.target.closest("[data-filter-key]");
+        if (!button) return;
+
+        var key = button.getAttribute("data-filter-key");
+        var value = button.getAttribute("data-filter-value");
+
+        if (key === "q") els.q.value = "";
+        if (key === "location") els.location.value = "all";
+        if (key === "contract") els.contract.value = "all";
+        if (key === "salary") els.salary.value = "all";
+        if (key === "filled") els.filled.checked = false;
+        if (key === "desk") {
+          els.deskInputs.forEach(function (input) {
+            if (input.value === value) input.checked = false;
+          });
+        }
+
+        rerender();
+        var focusTarget =
+          key === "q" ? els.q : key === "desk" ? doc.getElementById("desk-" + value) : els[key];
+        if (focusTarget) focusTarget.focus();
+      });
+    }
+
+    if (els.applyLink) {
+      els.applyLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        var heading = doc.getElementById("apply");
+        if (heading) {
+          heading.scrollIntoView({
+            block: "start",
+            behavior: WF.motionValue() === "none" ? "auto" : "smooth"
+          });
+        }
+        var first = doc.getElementById("apply-name");
+        if (first) {
+          window.setTimeout(function () {
+            first.focus({ preventScroll: true });
+          }, 260);
+        }
+      });
+    }
+
+    /* Role alert ------------------------------------------------------------ */
+
+    if (els.alertForm) {
+      var alertStarted = els.alertForm.querySelector("[name='formStartedAt']");
+      if (alertStarted) alertStarted.value = String(Date.now());
+
+      els.alertForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        WF.clearValidation(els.alertForm);
+
+        var errors = WF.validate(els.alertForm);
+        if (errors.length) {
+          WF.errorSummary(els.alertForm, errors, els.alertStatus);
+          return;
+        }
+
+        var submit = doc.getElementById("alert-submit");
+        submit.setAttribute("data-loading", "true");
+        submit.setAttribute("aria-busy", "true");
+        submit.disabled = true;
+
+        var data = {};
+        Array.prototype.forEach.call(els.alertForm.elements, function (field) {
+          if (!field.name) return;
+          data[field.name] = field.type === "checkbox" ? (field.checked ? "on" : "") : field.value;
+        });
+        data.roleInterest = data.desk;
+
+        fetch("/api/subscribe", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(data)
+        })
+          .then(function (response) {
+            return response.json().then(function (body) {
+              return { status: response.status, body: body };
+            });
+          })
+          .then(function (result) {
+            if (result.body && result.body.fields && result.body.fields.length) {
+              var listed = result.body.fields
+                .map(function (item) {
+                  var input = doc.getElementById(item.field);
+                  var wrapper = input && input.closest(".field");
+                  if (wrapper) {
+                    wrapper.setAttribute("data-invalid", "true");
+                    var node = wrapper.querySelector(".field__error");
+                    if (node) node.textContent = item.message;
+                  }
+                  return {
+                    input: input || els.alertForm,
+                    label: (input && input.getAttribute("data-label")) || item.field,
+                    message: item.message
+                  };
+                })
+                .filter(Boolean);
+              WF.errorSummary(els.alertForm, listed, els.alertStatus);
+            } else if (!result.body || result.body.ok !== true) {
+              WF.setStatus(
+                els.alertStatus,
+                "error",
+                "That did not go through",
+                (result.body && result.body.error) || "Something went wrong on our side."
+              );
+            } else {
+              WF.setStatus(
+                els.alertStatus,
+                "success",
+                "Alert saved",
+                "You will hear from us when something on the board matches. One email, and you can stop it in a click."
+              );
+              els.alertStatus.focus();
+            }
+
+            submit.removeAttribute("data-loading");
+            submit.removeAttribute("aria-busy");
+            submit.disabled = false;
+          })
+          .catch(function () {
+            submit.removeAttribute("data-loading");
+            submit.removeAttribute("aria-busy");
+            submit.disabled = false;
+            WF.setStatus(
+              els.alertStatus,
+              "error",
+              "We could not reach our server",
+              "Call 0161 555 0142 or email <a href=\"mailto:hello@wrenfield.co.uk\">hello@wrenfield.co.uk</a> and we will set the alert from here."
+            );
+          });
+      });
+    }
+
+    render();
+    fromHash();
+    window.addEventListener("hashchange", fromHash);
+  }
+
+  /* Data ------------------------------------------------------------------- */
+
+  function loadFromApi() {
+    return fetch("/api/roles", { headers: { accept: "application/json" } })
+      .then(function (response) {
+        if (!response.ok) return false;
+        return response.json().then(function (body) {
+          if (!body || body.ok !== true || !Array.isArray(body.roles) || !body.roles.length) {
+            return false;
+          }
+          roles = body.roles;
+          return true;
+        });
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+
+  if (!els.loading && !els.results) return;
+
+  /* The bundled ledger renders straight away so the board is never empty on a
+     slow connection, then the API replaces it with whatever is live. */
+  if (roles.length) {
     if (els.loading) els.loading.hidden = true;
-    if (els.error) els.error.hidden = false;
-    if (els.status) els.status.hidden = true;
+    if (els.error) els.error.hidden = true;
+    wireBoard();
+    loadFromApi().then(function (ok) {
+      if (ok) render();
+    });
     return;
   }
 
-  if (els.loading) els.loading.hidden = true;
-  if (els.error) els.error.hidden = true;
+  loadFromApi().then(function (ok) {
+    if (els.loading) els.loading.hidden = true;
 
-  if (els.form) {
-    els.form.addEventListener("submit", function (event) {
-      event.preventDefault();
-    });
+    if (!ok) {
+      if (els.error) els.error.hidden = false;
+      if (els.status) els.status.hidden = true;
+      return;
+    }
 
-    els.form.addEventListener("change", rerender);
-    els.form.addEventListener("input", WF.debounce(rerender, 160));
-    els.form.addEventListener("reset", function () {
-      window.setTimeout(rerender, 0);
-    });
-  }
-
-  if (els.more) {
-    els.more.addEventListener("click", function () {
-      state.limit += PAGE;
-      render();
-    });
-  }
-
-  var clearAll = function () {
-    if (els.form) els.form.reset();
-    rerender();
-    if (els.q) els.q.focus();
-  };
-
-  if (els.clear) els.clear.addEventListener("click", clearAll);
-  if (els.emptyClear) els.emptyClear.addEventListener("click", clearAll);
-
-  if (els.retry) {
-    els.retry.addEventListener("click", function () {
-      els.error.hidden = true;
-      els.loading.hidden = false;
-      window.setTimeout(function () {
-        els.loading.hidden = true;
-        render();
-      }, 500);
-    });
-  }
-
-  if (els.results) {
-    els.results.addEventListener("click", function (event) {
-      var row = event.target.closest(".role-row");
-      if (!row) return;
-      event.preventDefault();
-      openRole(row.id, row.querySelector("[data-role]") || row);
-    });
-  }
-
-  if (els.active) {
-    els.active.addEventListener("click", function (event) {
-      var button = event.target.closest("[data-filter-key]");
-      if (!button) return;
-
-      var key = button.getAttribute("data-filter-key");
-      var value = button.getAttribute("data-filter-value");
-
-      if (key === "q") els.q.value = "";
-      if (key === "location") els.location.value = "all";
-      if (key === "contract") els.contract.value = "all";
-      if (key === "salary") els.salary.value = "all";
-      if (key === "filled") els.filled.checked = false;
-      if (key === "desk") {
-        els.deskInputs.forEach(function (input) {
-          if (input.value === value) input.checked = false;
-        });
-      }
-
-      rerender();
-      var focusTarget =
-        key === "q" ? els.q : key === "desk" ? doc.getElementById("desk-" + value) : els[key];
-      if (focusTarget) focusTarget.focus();
-    });
-  }
-
-  if (els.applyLink) {
-    els.applyLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      var heading = doc.getElementById("apply");
-      if (heading) heading.scrollIntoView({ block: "start", behavior: WF.motionValue() === "none" ? "auto" : "smooth" });
-      var first = doc.getElementById("apply-name");
-      if (first) window.setTimeout(function () { first.focus({ preventScroll: true }); }, 260);
-    });
-  }
-
-  /* Alert form ------------------------------------------------------------- */
-
-  if (els.alertForm) {
-    els.alertForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      WF.clearValidation(els.alertForm);
-
-      var errors = WF.validate(els.alertForm);
-      if (errors.length) {
-        WF.errorSummary(els.alertForm, errors, els.alertStatus);
-        return;
-      }
-
-      var submit = doc.getElementById("alert-submit");
-      submit.setAttribute("data-loading", "true");
-      submit.setAttribute("aria-busy", "true");
-      submit.disabled = true;
-
-      window.setTimeout(function () {
-        WF.setStatus(
-          els.alertStatus,
-          "success",
-          "Alert saved",
-          "You will hear from us when something on the board matches. This is a demo build, so nothing was stored and no email will arrive."
-        );
-        submit.removeAttribute("data-loading");
-        submit.removeAttribute("aria-busy");
-        submit.disabled = false;
-        els.alertStatus.focus();
-      }, 800);
-    });
-  }
+    if (els.error) els.error.hidden = true;
+    wireBoard();
+  });
 
   /* Deep links: #WF-2416 opens the role, #desk-eng applies the desk filter. */
 
@@ -656,8 +850,4 @@
       }
     }
   }
-
-  render();
-  fromHash();
-  window.addEventListener("hashchange", fromHash);
 })(window.WF, document);

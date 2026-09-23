@@ -33,7 +33,7 @@ html[data-motion="none"] {
 body {
   margin: 0;
   min-height: 100%;
-  background-color: var(--paper-050);
+  background-color: var(--white);
   color: var(--text);
   font-family: var(--font-ui);
   font-size: var(--step-0);
@@ -45,19 +45,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Paper grain: on the paper, under the content, so type stays crisp and
-   contrast stays measurable. Multiply keeps it from washing out the ink. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)'/%3E%3C/svg%3E");
-}
-
 h1,
 h2,
 h3,
@@ -65,17 +52,16 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: var(--text-strong);
-  font-family: var(--font-display);
-  font-variation-settings: "SOFT" 0, "WONK" 1;
-  font-weight: 600;
+  color: var(--navy);
+  font-family: var(--font-ui);
+  font-weight: 700;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-heading);
   text-wrap: balance;
 }
 
 h1 {
-  font-size: var(--step-5);
+  font-size: var(--step-4);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
 }
@@ -86,20 +72,16 @@ h2 {
 
 h3 {
   font-size: var(--step-2);
-  line-height: 1.26;
+  line-height: 1.3;
 }
 
 h4 {
-  font-family: var(--font-ui);
   font-size: var(--step-1);
   font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -0.008em;
 }
 
 h5,
 h6 {
-  font-family: var(--font-ui);
   font-size: var(--step-0);
   font-weight: 600;
 }
@@ -114,12 +96,12 @@ p + p {
 }
 
 a {
-  color: var(--signal-ink);
+  color: var(--cyan-darker);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in oklab, var(--signal-ink) 40%, transparent);
-  transition: text-decoration-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+  text-decoration-color: rgba(10, 123, 168, 0.35);
+  transition: color var(--dur-base) var(--ease-out), text-decoration-color var(--dur-base) var(--ease-out);
 }
 
 a:hover {
@@ -135,16 +117,18 @@ summary:focus-visible,
 [tabindex]:focus-visible {
   outline: var(--focus-width) solid var(--focus-ring);
   outline-offset: var(--focus-offset);
-  border-radius: var(--radius-1);
+  border-radius: var(--r-sm);
 }
 
 .on-ink a:focus-visible,
 .on-ink button:focus-visible,
 .on-ink input:focus-visible,
-.on-ink select:focus-visible,
-.on-ink textarea:focus-visible,
 .on-ink summary:focus-visible,
-.on-ink [tabindex]:focus-visible {
+.on-ink [tabindex]:focus-visible,
+.on-cyan a:focus-visible,
+.on-cyan button:focus-visible,
+.on-cyan input:focus-visible,
+.on-cyan [tabindex]:focus-visible {
   outline-color: var(--focus-ring-on-ink);
 }
 
@@ -167,25 +151,29 @@ svg {
 }
 
 hr {
-  height: var(--hairline);
+  height: 1px;
   margin: 0;
   border: 0;
-  background-color: var(--paper-rule);
+  background-color: var(--line);
 }
 
 strong,
 b {
-  font-weight: 600;
-  color: var(--text-strong);
+  font-weight: 700;
+  color: var(--navy);
 }
 
 small {
   font-size: var(--step--1);
 }
 
+address {
+  font-style: normal;
+}
+
 ::selection {
-  background-color: var(--signal-wash-2);
-  color: var(--text-strong);
+  background-color: var(--cyan-soft-2);
+  color: var(--navy);
 }
 
 /* Form element baseline ---------------------------------------------------- */
@@ -224,6 +212,11 @@ legend {
   padding: 0;
 }
 
+/* Anchor targets clear the fixed masthead. */
+[id] {
+  scroll-margin-top: 150px;
+}
+
 /* Utilities ---------------------------------------------------------------- */
 
 .shell {
@@ -233,94 +226,45 @@ legend {
   padding-inline: var(--gutter);
 }
 
-.shell--wide {
-  max-width: 1560px;
-}
-
-.shell--flush {
-  padding-inline: 0;
-}
-
 .section {
   padding-block: var(--section-y);
-  border-top: var(--hairline) solid var(--paper-rule);
 }
 
-.section--tight {
-  padding-block: var(--section-y-tight);
-}
-
-.section--flush-top {
-  border-top: 0;
+.section--light {
+  background-color: var(--light);
 }
 
 .on-ink {
-  background-color: var(--ink-plane);
+  background-color: var(--navy);
   color: var(--on-ink);
-  border-top-color: var(--ink-plane-rule);
 }
 
 .on-ink h1,
 .on-ink h2,
 .on-ink h3,
-.on-ink h4,
-.on-ink h5,
-.on-ink h6 {
-  color: var(--on-ink-strong);
-}
-
-/* Light type reads optically thinner and brighter, so it gets more room. */
-.on-ink p,
-.on-ink li,
-.on-ink dd {
-  letter-spacing: 0.008em;
-  line-height: var(--leading-long);
-}
-
-.on-ink a {
-  color: var(--on-ink-strong);
-}
-
-.on-ink strong {
-  color: var(--on-ink-strong);
-}
-
-.on-ink hr {
-  background-color: var(--ink-plane-rule);
+.on-ink h4 {
+  color: #fff;
 }
 
 .label {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  font-weight: 500;
+  font-size: var(--step--2);
+  font-weight: 600;
   line-height: var(--leading-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-.on-ink .label {
-  color: var(--on-ink-muted);
-}
-
 .label--signal {
-  color: var(--signal-ink);
-}
-
-.on-ink .label--signal {
-  color: var(--signal-on-ink);
+  color: var(--cyan-dark);
 }
 
 .lede {
   font-size: var(--step-1);
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--text);
   max-width: var(--measure);
-}
-
-.on-ink .lede {
-  color: var(--on-ink);
 }
 
 .measure {
@@ -332,16 +276,20 @@ legend {
 }
 
 .mono {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
 }
 
 .num {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  letter-spacing: -0.01em;
+}
+
+.rule {
+  height: 1px;
+  background-color: var(--line);
+}
+
+.hairline-list > * + * {
+  border-top: 1px solid var(--line);
 }
 
 .skip-link {
@@ -350,8 +298,9 @@ legend {
   left: var(--s-2);
   z-index: calc(var(--z-header) + 10);
   padding: var(--s-3) var(--s-4);
-  background-color: var(--ink-plane);
-  color: var(--on-ink-strong);
+  border-radius: var(--r-sm);
+  background-color: var(--navy);
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
   transform: translateY(-150%);
@@ -375,34 +324,20 @@ legend {
   border: 0;
 }
 
-.rule {
-  height: var(--hairline);
-  background-color: var(--paper-rule);
-}
-
-.on-ink .rule {
-  background-color: var(--ink-plane-rule);
-}
-
-.stack > * + * {
-  margin-top: var(--s-4);
-}
-
-.hairline-list > * + * {
-  border-top: var(--hairline) solid var(--paper-rule);
-}
-
-.on-ink .hairline-list > * + * {
-  border-top-color: var(--ink-plane-rule);
-}
-
-/* Anchor targets clear the sticky masthead. */
-[id] {
-  scroll-margin-top: 96px;
+/* Honeypot: off screen for people, fillable for bots. Deliberately not
+   display:none, because some spam scripts skip fields hidden that way. */
+.hp {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: 0;
 }
 
 /* Reveal on scroll. Elements are only hidden once JavaScript is running, so
-   the page reads normally without it. Transform and opacity only, staggered in JS. */
+   the page reads normally without it. */
 html.js .reveal {
   opacity: 0;
   transform: translate3d(0, var(--reveal-shift), 0);
@@ -419,7 +354,7 @@ html.js .reveal.is-in {
 }
 
 html.js .reveal--scale {
-  transform: translate3d(0, var(--reveal-shift), 0) scale(0.965);
+  transform: translate3d(0, var(--reveal-shift), 0) scale(0.96);
 }
 
 html.js[data-motion="none"] .reveal,
@@ -438,9 +373,9 @@ html.js[data-motion="none"] .reveal--scale {
 }
 
 @media print {
-  body::before,
   .site-header,
-  .site-footer {
+  .site-footer,
+  .to-top {
     display: none;
   }
 }

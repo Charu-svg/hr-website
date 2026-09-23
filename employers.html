@@ -84,12 +84,13 @@
   <section class="page-head">
     <div class="shell page-head__grid">
       <div>
-        <p class="label label--signal">For employers</p>
+        <p class="label label--signal">For employers · permanent, contract and retained</p>
         <h1>Tell us what the last person in the job got wrong.</h1>
         <p class="lede">
-          That single answer decides whether we can fill your role, so it is the first thing we ask
-          and the last thing we forget. Everything else on this page is the commercial detail: what
-          we charge, how fast we move, and what happens when it does not work.
+          One answer decides who we look for, so it is the first question on the brief and the one we
+          come back to when the shortlist is built. Everything else on this page is the commercial
+          detail: what we charge across the four desks, how fast we move, and what happens when a
+          placement does not work out.
         </p>
       </div>
       <div class="page-head__aside">
@@ -368,6 +369,11 @@
 
       <form class="alert-form brief-form" id="brief-form" novalidate>
         <div class="form-status" id="brief-status" tabindex="-1" hidden></div>
+        <p class="hp" aria-hidden="true">
+          <label for="brief-website">Website</label>
+          <input type="text" id="brief-website" name="website" tabindex="-1" autocomplete="off">
+        </p>
+        <input type="hidden" name="formStartedAt" value="">
 
         <div class="field-row field-row--2">
           <div class="field">

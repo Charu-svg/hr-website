@@ -1,0 +1,43 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    # Copy .env.example to .env and set ADMIN_TOKEN before the first run:
+    # docker compose up will fail if this file is missing.
+    env_file: .env
+    environment:
+      PORT: 8000
+      DATA_DIR: /app/data
+      UPLOAD_DIR: /app/uploads
+      SITE_DIR: /app
+      # Caddy terminates TLS and forwards the real client IP, so the
+      # per-IP rate limits on the forms work off X-Forwarded-For.
+      TRUST_PROXY: 1
+    expose:
+      - "8000"
+    # Uncomment to smoke-test over plain HTTP before DNS/TLS is working.
+    # Remove it again so port 8000 is not reachable unencrypted.
+    # ports:
+    #   - "8000:8000"
+    volumes:
+      - wrenfield-data:/app/data
+      - wrenfield-uploads:/app/uploads
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  wrenfield-data:
+  wrenfield-uploads:
+  caddy-data:
+  caddy-config:

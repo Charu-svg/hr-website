@@ -1,0 +1,19 @@
+# Caddy gets a real Let's Encrypt certificate for whatever name is on the left.
+#
+# No domain purchased? Use sslip.io: replace 203-0-113-5 below with your
+# server's public IP, written with dashes instead of dots. The name resolves
+# back to that IP, so HTTPS works with nothing but the IP address.
+# Example for a server on 51.83.14.202:  51-83-14-202.sslip.io
+
+203-0-113-5.sslip.io {
+	encode zstd gzip
+	reverse_proxy app:8000
+}
+
+# Once you buy a domain, replace the block above with this and point an A
+# record at the server's IP. Caddy issues and renews the certificate itself.
+#
+# wrenfield.co.uk, www.wrenfield.co.uk {
+# 	encode zstd gzip
+# 	reverse_proxy app:8000
+# }

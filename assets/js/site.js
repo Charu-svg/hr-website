@@ -390,6 +390,42 @@ window.WF = window.WF || {};
       }
     }
 
+    var toTop = doc.getElementById("to-top");
+    if (toTop) {
+      toTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: WF.motionValue() === "none" ? "auto" : "smooth" });
+      });
+    }
+
+    var videoButton = doc.querySelector("[data-video-note]");
+    var videoNote = doc.getElementById("video-note");
+    if (videoButton && videoNote) {
+      videoButton.addEventListener("click", function () {
+        videoNote.hidden = false;
+        videoNote.focus();
+      });
+    }
+
+    var slides = Array.prototype.slice.call(doc.querySelectorAll("[data-slide]"));
+    var dots = Array.prototype.slice.call(doc.querySelectorAll("[data-slide-to]"));
+
+    if (slides.length > 1 && dots.length === slides.length) {
+      var showSlide = function (index) {
+        slides.forEach(function (slide) {
+          slide.hidden = Number(slide.getAttribute("data-slide")) !== index;
+        });
+        dots.forEach(function (dot, dotIndex) {
+          dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
+        });
+      };
+
+      dots.forEach(function (dot) {
+        dot.addEventListener("click", function () {
+          showSlide(Number(dot.getAttribute("data-slide-to")));
+        });
+      });
+    }
+
     WF.motionControl();
     WF.reveal();
   });

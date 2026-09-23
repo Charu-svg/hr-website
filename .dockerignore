@@ -1,0 +1,18 @@
+node_modules
+npm-debug.log*
+
+.git
+.gitignore
+.gitattributes
+.github
+
+# Secrets and PII: never baked into an image
+.env
+data
+uploads
+
+# Reference material and working screenshots
+.ref
+.shots
+.commandcode
+screencapture-*.png

@@ -3,6 +3,15 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
+# Dependencies
+node_modules/
+
+# Secrets and PII. Never commit these: data/ holds briefs and applications,
+# uploads/ holds candidate CVs, .env holds your admin token and SMTP password.
+.env
+data/
+uploads/
+
 # Reference material and working screenshots (not part of the site)
 .ref/
 .shots/

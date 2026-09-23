@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Placeholder portrait photograph">
+  <defs>
+    <linearGradient id="portraitBg" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#153c5c"/>
+      <stop offset="0.65" stop-color="#1879a6"/>
+      <stop offset="1" stop-color="#14ace8"/>
+    </linearGradient>
+    <radialGradient id="portraitLight" cx="0.62" cy="0.22" r="0.55">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="600" height="800" fill="url(#portraitBg)"/>
+  <rect width="600" height="800" fill="url(#portraitLight)"/>
+
+  <g opacity="0.12" fill="#ffffff">
+    <rect x="40" y="60" width="200" height="260" rx="6"/>
+    <rect x="380" y="120" width="180" height="240" rx="6"/>
+  </g>
+
+  <circle cx="300" cy="330" r="118" fill="#ffffff" opacity="0.3"/>
+  <path d="M120 800c0-99 81-180 180-180s180 81 180 180z" fill="#ffffff" opacity="0.34"/>
+</svg>

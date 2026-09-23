@@ -20,7 +20,15 @@ screencapture-*.png
 # Tooling state
 .commandcode/
 
+# Vercel project link, created by `vercel link` or the first deploy
+.vercel
+
 # Editors
 .vscode/
 .idea/
 *.swp
+
+# Vercel environment files (the CLI writes .env.local when linking or deploying).
+# The template stays trackable.
+.env*
+!.env.example

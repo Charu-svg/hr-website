@@ -4,6 +4,8 @@
 server
 data
 uploads
+.env
+.env.*
 Dockerfile
 .dockerignore
 docker-compose.yml

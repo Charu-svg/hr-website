@@ -397,12 +397,53 @@ window.WF = window.WF || {};
       });
     }
 
-    var videoButton = doc.querySelector("[data-video-note]");
-    var videoNote = doc.getElementById("video-note");
-    if (videoButton && videoNote) {
-      videoButton.addEventListener("click", function () {
-        videoNote.hidden = false;
-        videoNote.focus();
+    var videoButton = doc.querySelector("[data-video-play]");
+    var videoClose = doc.querySelector("[data-video-close]");
+    var videoPlayer = doc.getElementById("intro-player");
+    var videoCopy = doc.getElementById("intro-copy");
+    var video = doc.getElementById("intro-video");
+
+    if (videoButton && videoPlayer && video) {
+      var openVideo = function () {
+        videoPlayer.hidden = false;
+        if (videoCopy) videoCopy.classList.add("is-covered");
+
+        /* The sticky header can sit over the top of the band, which would put
+           the close button underneath it, so bring the film into view. */
+        if (videoPlayer.scrollIntoView) {
+          videoPlayer.scrollIntoView({
+            block: "center",
+            behavior: WF.motionValue() === "none" ? "auto" : "smooth"
+          });
+        }
+
+        video.currentTime = 0;
+
+        var playing = video.play();
+        if (playing && typeof playing.catch === "function") {
+          playing.catch(function () {
+            /* the browser refused to start it: the controls are right there */
+          });
+        }
+
+        if (videoClose) videoClose.focus();
+      };
+
+      var closeVideo = function () {
+        video.pause();
+        videoPlayer.hidden = true;
+        if (videoCopy) videoCopy.classList.remove("is-covered");
+        videoButton.focus();
+      };
+
+      videoButton.addEventListener("click", openVideo);
+
+      if (videoClose) {
+        videoClose.addEventListener("click", closeVideo);
+      }
+
+      doc.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !videoPlayer.hidden) closeVideo();
       });
     }
 

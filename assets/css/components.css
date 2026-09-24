@@ -1575,6 +1575,38 @@ html[data-motion="none"] .btn__spinner {
   max-width: 22ch;
 }
 
+/* Click-to-play film. It fills the band, sits over the still and the copy,
+   and carries its own controls so it can be paused or seeked. */
+.media-band__player {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: var(--black);
+}
+
+/* Absolute so the film fills the band exactly and letterboxes inside it,
+   rather than overflowing and being cropped by the band's own clipping. */
+.media-band__player video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.media-band__close {
+  position: absolute;
+  inset-block-start: var(--s-6);
+  inset-inline-end: var(--s-6);
+}
+
+/* The band takes its height from this block, so while the film is open it is
+   hidden from view and from assistive tech rather than removed from the flow,
+   which would collapse the section to nothing. */
+.media-band__inner.is-covered {
+  visibility: hidden;
+}
+
 /* Forms ------------------------------------------------------------------- */
 
 .field {

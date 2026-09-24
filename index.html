@@ -324,16 +324,22 @@
   <!-- Media band -->
   <section class="media-band">
     <img src="assets/img/photo-hero.svg" alt="" width="1600" height="900">
-    <div class="shell media-band__inner">
-      <button class="play-btn" type="button" data-video-note>
+    <div class="media-band__player" id="intro-player" hidden>
+      <video id="intro-video" controls preload="metadata" playsinline width="1280" height="720">
+        <source src="assets/video/audience-building.mp4" type="video/mp4">
+        This browser cannot play the video.
+        <a href="assets/video/audience-building.mp4">Download it instead</a>.
+      </video>
+      <button class="icon-btn media-band__close" type="button" data-video-close aria-label="Close the video">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+      </button>
+    </div>
+    <div class="shell media-band__inner" id="intro-copy">
+      <button class="play-btn" type="button" data-video-play>
         <span class="visually-hidden">Play the Wrenfield introduction</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5 16 10 5 16.5z" fill="currentColor"/></svg>
       </button>
       <h2 class="media-band__title">Four desks, four markets, and the person who takes your brief does the searching.</h2>
-      <p class="form-status" id="video-note" hidden tabindex="-1" style="max-width: 520px; text-align: start">
-        <span class="form-status__title">No film here yet</span>
-        <span class="form-status__body">This is where the two-minute introduction sits in a live build. Nothing was loaded.</span>
-      </p>
     </div>
   </section>
 

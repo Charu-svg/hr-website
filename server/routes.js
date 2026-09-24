@@ -194,7 +194,7 @@ async function createBrief(req, res) {
     fields.push({ field: "brief-band-max", message: "The top of the band sits below the bottom." });
   }
 
-  if (body.consent !== true) {
+  if (body.consent !== "on" && body.consent !== "true") {
     fields.push({ field: "brief-consent", message: "We need permission to hold these details." });
   }
 

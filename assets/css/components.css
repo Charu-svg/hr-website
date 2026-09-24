@@ -824,13 +824,15 @@ html[data-motion="none"] .btn__spinner {
    keep its own proportions instead of cropping to fill the 16:10 box. The
    icon is a single dark path, so it is knocked back to white to sit on the
    blue the neighbouring cards use. */
-.card--photo .card__media--icon {
+.card--photo .card__media.card__media--icon,
+.card--post .card__media.card__media--icon {
   display: grid;
   place-items: center;
   background-image: linear-gradient(135deg, var(--navy) 0%, var(--cyan) 100%);
 }
 
-.card--photo .card__media--icon img {
+.card--photo .card__media.card__media--icon img,
+.card--post .card__media.card__media--icon img {
   width: 42%;
   height: auto;
   object-fit: contain;

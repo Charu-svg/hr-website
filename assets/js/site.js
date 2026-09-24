@@ -426,6 +426,52 @@ window.WF = window.WF || {};
       });
     }
 
+    /* Hero banner slider: the photographs rotate, the content does not. */
+    var heroSlides = Array.prototype.slice.call(doc.querySelectorAll(".hero__slide"));
+
+    if (heroSlides.length > 1) {
+      var heroIndex = 0;
+      var heroTimer = null;
+
+      var showHeroSlide = function (index) {
+        heroSlides.forEach(function (slide, slideIndex) {
+          if (slideIndex === index) slide.classList.add("is-active");
+          else slide.classList.remove("is-active");
+        });
+        heroIndex = index;
+      };
+
+      var stopHeroSlider = function () {
+        if (heroTimer) {
+          window.clearInterval(heroTimer);
+          heroTimer = null;
+        }
+      };
+
+      var startHeroSlider = function () {
+        stopHeroSlider();
+
+        var level = WF.motionValue();
+        if (level === "none" || level === "reduced" || doc.hidden) return;
+
+        heroTimer = window.setInterval(function () {
+          showHeroSlide((heroIndex + 1) % heroSlides.length);
+        }, 6000);
+      };
+
+      startHeroSlider();
+
+      WF.onMotionChange(function () {
+        showHeroSlide(0);
+        startHeroSlider();
+      });
+
+      doc.addEventListener("visibilitychange", function () {
+        if (doc.hidden) stopHeroSlider();
+        else startHeroSlider();
+      });
+    }
+
     WF.motionControl();
     WF.reveal();
   });

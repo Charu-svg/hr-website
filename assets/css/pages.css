@@ -24,6 +24,23 @@
   object-fit: cover;
 }
 
+/* Hero banner slider. Slides stack under the same overlay so the headline,
+   copy and buttons stay put while the photograph behind them changes. */
+.hero__bg .hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.hero__bg .hero__slide.is-active {
+  opacity: 1;
+}
+
+[data-motion="none"] .hero__bg .hero__slide {
+  transition: none;
+}
+
 .hero__bg::after {
   content: "";
   position: absolute;

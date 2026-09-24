@@ -87,7 +87,7 @@
     if (!state.filled && role.stage === "placed") return false;
 
     if (state.desks.length && state.desks.indexOf(role.desk) === -1) return false;
-    if (state.location !== "all" && role.location !== state.location) return false;
+    if (state.location !== "all" && String(role.location || "").indexOf(state.location) !== 0) return false;
     if (state.contract !== "all" && String(role.contract || "").indexOf(state.contract) !== 0) return false;
 
     if (state.salary !== "all") {
@@ -121,7 +121,7 @@
     return roles.filter(function (role) {
       var openOnly = state.filled || role.stage !== "placed";
       var deskOk = !state.desks.length || state.desks.indexOf(role.desk) > -1;
-      var locationOk = state.location === "all" || role.location === state.location;
+      var locationOk = state.location === "all" || String(role.location || "").indexOf(state.location) === 0;
       return openOnly && deskOk && locationOk && !hasBand(role);
     }).length;
   }

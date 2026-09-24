@@ -7,7 +7,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Bolton",
+    location: "Hyderabad",
     pattern: "On site, 4 on 4 off, days and nights",
     contract: "Permanent",
     hours: "42 hours averaged",
@@ -43,7 +43,7 @@ window.WRENFIELD_ROLES = [
     desk: "eng",
     deskName: "Engineering & product",
     deskCode: "ENG",
-    location: "Leeds",
+    location: "Hyderabad",
     pattern: "Hybrid, 3 days on site",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -68,7 +68,7 @@ window.WRENFIELD_ROLES = [
       "Production Kubernetes experience, ideally EKS or GKE",
       "Terraform and AWS beyond the basics",
       "Comfortable working inside ISO 27001 controls",
-      "Leeds commutable, three days on site"
+      "Hyderabad commutable, three days on site"
     ],
     slaLonglist: "3 working days",
     slaShortlist: "10 working days"
@@ -79,7 +79,7 @@ window.WRENFIELD_ROLES = [
     desk: "cln",
     deskName: "Clinical & healthcare",
     deskCode: "CLN",
-    location: "Sheffield",
+    location: "Mumbai",
     pattern: "On site, rotational days and nights",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -104,7 +104,7 @@ window.WRENFIELD_ROLES = [
       "NMC registration with a valid PIN",
       "Twelve months post-registration experience",
       "Experience in acute or medical assessment",
-      "Right to work in the UK"
+      "Right to work in India"
     ],
     slaLonglist: "4 working days",
     slaShortlist: "14 working days"
@@ -115,7 +115,7 @@ window.WRENFIELD_ROLES = [
     desk: "fin",
     deskName: "Finance & operations",
     deskCode: "FIN",
-    location: "Manchester",
+    location: "Bangalore",
     pattern: "Hybrid, 2 days on site",
     contract: "Fixed term, 12 months",
     hours: "Full time, 35 hours",
@@ -151,7 +151,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Stockport",
+    location: "Bangalore",
     pattern: "On site, days, 39 hours",
     contract: "Permanent",
     hours: "39 hours, early finish Friday",
@@ -187,7 +187,7 @@ window.WRENFIELD_ROLES = [
     desk: "cln",
     deskName: "Clinical & healthcare",
     deskCode: "CLN",
-    location: "Bristol",
+    location: "Chennai",
     pattern: "On site, Monday to Friday",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -223,7 +223,7 @@ window.WRENFIELD_ROLES = [
     desk: "fin",
     deskName: "Finance & operations",
     deskCode: "FIN",
-    location: "Leeds",
+    location: "Hyderabad",
     pattern: "Hybrid, 3 days on site",
     contract: "Permanent",
     hours: "Full time, 37 hours",
@@ -259,8 +259,8 @@ window.WRENFIELD_ROLES = [
     desk: "eng",
     deskName: "Engineering & product",
     deskCode: "ENG",
-    location: "Remote, United Kingdom",
-    pattern: "Remote, travel to London one day a month",
+    location: "Remote, India",
+    pattern: "Remote, travel to Mumbai one day a month",
     contract: "Permanent",
     hours: "Full time",
     band: "₹50,00,000 to ₹70,00,000",
@@ -284,7 +284,7 @@ window.WRENFIELD_ROLES = [
       "Led a platform function above 15 engineers",
       "Experience in payments, banking or another regulated sector",
       "Merger or integration background",
-      "UK based with right to work"
+      "India based with right to work"
     ],
     slaLonglist: "10 working days",
     slaShortlist: "6 weeks, retained"
@@ -295,7 +295,7 @@ window.WRENFIELD_ROLES = [
     desk: "fin",
     deskName: "Finance & operations",
     deskCode: "FIN",
-    location: "Bristol",
+    location: "Chennai",
     pattern: "Hybrid, 3 days on site",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -331,7 +331,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Warrington",
+    location: "Mumbai",
     pattern: "On site, nights, Monday to Friday",
     contract: "Contract, 12 weeks rolling",
     hours: "50 hours, nights",
@@ -347,7 +347,7 @@ window.WRENFIELD_ROLES = [
     status: "Six drivers put forward, four available. The client pays for all PPE and boots.",
     summary: "Trunking work between two depots, no handball, same route every night. The contract has rolled for three drivers already and the client keeps asking for more.",
     responsibilities: [
-      "Trunking between Warrington and Wakefield",
+      "Trunking between Mumbai and Chennai",
       "Vehicle checks and defect reporting",
       "Working to DVSA hours rules",
       "Keeping the paperwork clean"
@@ -367,7 +367,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Runcorn",
+    location: "Chennai",
     pattern: "On site, permanent nights, 10pm to 6am",
     contract: "Permanent",
     hours: "40 hours, nights",
@@ -403,7 +403,7 @@ window.WRENFIELD_ROLES = [
     desk: "fin",
     deskName: "Finance & operations",
     deskCode: "FIN",
-    location: "Runcorn",
+    location: "Chennai",
     pattern: "On site, Monday to Friday",
     contract: "Permanent",
     hours: "Full time, 40 hours",
@@ -439,7 +439,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Leeds",
+    location: "Hyderabad",
     pattern: "On site, 4 on 4 off, 12 hour shifts",
     contract: "Permanent",
     hours: "Averaged 42 hours",
@@ -452,7 +452,7 @@ window.WRENFIELD_ROLES = [
     stageLabel: "Interviews",
     consultant: "Kelly Wainwright",
     clientType: "Chilled food manufacturer, 800 staff",
-    status: "Four on site next week. The client will pay for the right person to relocate within an hour of Leeds.",
+    status: "Four on site next week. The client will pay for the right person to relocate within an hour of Hyderabad.",
     summary: "Night shift lead on a high-care site, 28 people on the line. The site manager wants someone who will run the shift rather than work in it.",
     responsibilities: [
       "Running a 28-person production shift",
@@ -475,7 +475,7 @@ window.WRENFIELD_ROLES = [
     desk: "eng",
     deskName: "Engineering & product",
     deskCode: "ENG",
-    location: "Bristol",
+    location: "Chennai",
     pattern: "Hybrid, 2 days on site",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -500,7 +500,7 @@ window.WRENFIELD_ROLES = [
       "Product management in a regulated or clinical setting",
       "Comfortable in front of clinicians and trust IT",
       "Evidence of shipping, not just planning",
-      "Able to be in Bristol twice a week"
+      "Able to be in Chennai twice a week"
     ],
     slaLonglist: "3 working days",
     slaShortlist: "10 working days"
@@ -511,7 +511,7 @@ window.WRENFIELD_ROLES = [
     desk: "cln",
     deskName: "Clinical & healthcare",
     deskCode: "CLN",
-    location: "Hull",
+    location: "Chennai",
     pattern: "On site, Monday to Friday",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -547,7 +547,7 @@ window.WRENFIELD_ROLES = [
     desk: "eng",
     deskName: "Engineering & product",
     deskCode: "ENG",
-    location: "Manchester",
+    location: "Bangalore",
     pattern: "Hybrid, 2 days on site",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -572,7 +572,7 @@ window.WRENFIELD_ROLES = [
       "Production Go, or strong systems experience in another compiled language",
       "Event driven architecture at real volume",
       "Comfortable owning a service end to end",
-      "Manchester commutable, two days a week"
+      "Bangalore commutable, two days a week"
     ],
     slaLonglist: "3 working days",
     slaShortlist: "10 working days"
@@ -583,8 +583,8 @@ window.WRENFIELD_ROLES = [
     desk: "fin",
     deskName: "Finance & operations",
     deskCode: "FIN",
-    location: "Remote, United Kingdom",
-    pattern: "Remote, one day a month in Manchester",
+    location: "Remote, India",
+    pattern: "Remote, one day a month in Bangalore",
     contract: "Permanent",
     hours: "Full time, 35 hours",
     band: "₹5,00,000 to ₹7,50,000",
@@ -619,7 +619,7 @@ window.WRENFIELD_ROLES = [
     desk: "eng",
     deskName: "Engineering & product",
     deskCode: "ENG",
-    location: "Manchester",
+    location: "Bangalore",
     pattern: "Hybrid, 2 days on site",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -655,7 +655,7 @@ window.WRENFIELD_ROLES = [
     desk: "cln",
     deskName: "Clinical & healthcare",
     deskCode: "CLN",
-    location: "Leeds",
+    location: "Hyderabad",
     pattern: "On site, four days, 7.30am to 5.30pm",
     contract: "Permanent",
     hours: "Full time, 37.5 hours over four days",
@@ -691,7 +691,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Manchester",
+    location: "Bangalore",
     pattern: "On site, days, Monday to Friday",
     contract: "Permanent",
     hours: "40 hours, 6am to 2.30pm",
@@ -727,7 +727,7 @@ window.WRENFIELD_ROLES = [
     desk: "fin",
     deskName: "Finance & operations",
     deskCode: "FIN",
-    location: "Bristol",
+    location: "Chennai",
     pattern: "Hybrid, 3 days on site",
     contract: "Permanent",
     hours: "Full time, 37.5 hours",
@@ -752,7 +752,7 @@ window.WRENFIELD_ROLES = [
       "Qualified accountant, ACA or ACCA",
       "Group consolidation in a multi-entity business",
       "Audit management from the client side",
-      "Bristol commutable, three days a week"
+      "Chennai commutable, three days a week"
     ],
     slaLonglist: "5 working days",
     slaShortlist: "12 working days"
@@ -763,7 +763,7 @@ window.WRENFIELD_ROLES = [
     desk: "eng",
     deskName: "Engineering & product",
     deskCode: "ENG",
-    location: "Remote, United Kingdom",
+    location: "Remote, India",
     pattern: "Remote, quarterly team meetups",
     contract: "Permanent",
     hours: "Full time",
@@ -788,7 +788,7 @@ window.WRENFIELD_ROLES = [
       "Two years managing engineers, not just leading",
       "Worked in a fully remote team",
       "Technical enough to review the design, not the code",
-      "UK based"
+      "India based"
     ],
     slaLonglist: "3 working days",
     slaShortlist: "10 working days"
@@ -799,7 +799,7 @@ window.WRENFIELD_ROLES = [
     desk: "cln",
     deskName: "Clinical & healthcare",
     deskCode: "CLN",
-    location: "Sheffield",
+    location: "Mumbai",
     pattern: "On site, Monday to Friday",
     contract: "Permanent",
     hours: "Full time, 40 hours",
@@ -824,7 +824,7 @@ window.WRENFIELD_ROLES = [
       "Practice management in dental, medical or veterinary",
       "Multi-site experience",
       "Comfortable with CQC and GDC requirements",
-      "Sheffield or commutable"
+      "Mumbai or commutable"
     ],
     slaLonglist: "4 working days",
     slaShortlist: "14 working days"
@@ -835,7 +835,7 @@ window.WRENFIELD_ROLES = [
     desk: "cln",
     deskName: "Clinical & healthcare",
     deskCode: "CLN",
-    location: "Warrington",
+    location: "Mumbai",
     pattern: "On site, part time, 30 hours over four days",
     contract: "Permanent",
     hours: "Part time, 30 hours",
@@ -860,7 +860,7 @@ window.WRENFIELD_ROLES = [
       "NMC registration with a valid PIN",
       "Recovery or critical care experience",
       "Available four days, no weekends",
-      "Warrington or commutable"
+      "Mumbai or commutable"
     ],
     slaLonglist: "4 working days",
     slaShortlist: "14 working days"
@@ -871,7 +871,7 @@ window.WRENFIELD_ROLES = [
     desk: "ind",
     deskName: "Industrial & trades",
     deskCode: "IND",
-    location: "Warrington",
+    location: "Mumbai",
     pattern: "On site, days, Monday to Friday",
     contract: "Permanent",
     hours: "48 hours, days",

@@ -458,6 +458,48 @@
   overflow: hidden;
 }
 
+/* Breadcrumb, sitting inside the navy page head so the fixed header cannot
+   cover it. */
+.breadcrumb {
+  margin-block-end: var(--s-6);
+}
+
+.breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.breadcrumb__item + .breadcrumb__item::before {
+  content: "/";
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.breadcrumb__item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.breadcrumb__item a:hover {
+  color: #fff;
+}
+
+.breadcrumb__item[aria-current="page"] {
+  color: #fff;
+}
+
 .page-head::after {
   content: "";
   position: absolute;
